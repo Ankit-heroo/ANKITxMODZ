@@ -1,0 +1,39 @@
+from setuptools import setup, Extension
+from Cython.Build import cythonize
+import sys
+import os
+
+def build_all():
+    print("🔨 Compiling SSB modules for all architectures...")
+    
+    # दुवै modules को लागि extensions
+    extensions = [
+        # 64-bit module
+        Extension(
+            "ssb_64",
+            ["ssb_64.pyx"],
+            extra_compile_args=['-O2', '-fPIC'],
+            extra_link_args=[]
+        ),
+        # 32-bit module  
+        Extension(
+            "ssb_32",
+            ["ssb_32.pyx"], 
+            extra_compile_args=['-O2', '-m32', '-fPIC'],
+            extra_link_args=['-m32']
+        )
+    ]
+    
+    setup(
+        ext_modules=cythonize(
+            extensions,
+            compiler_directives={
+                'language_level': "3",
+                'boundscheck': False,
+                'wraparound': False,
+            }
+        )
+    )
+
+if __name__ == "__main__":
+    build_all()
