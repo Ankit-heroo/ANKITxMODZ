@@ -1,1 +1,1 @@
-import ssb32
+import ssb
