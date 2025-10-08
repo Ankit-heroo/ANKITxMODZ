@@ -5,4 +5,4 @@ bit = platform.architecture()[0]
 if bit == '64bit':
     import ssb64
 elif bit == '32bit':
-    import ssb
+    import ssb32
